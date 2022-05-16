@@ -18,6 +18,7 @@
 01-01-2001 4:59pm - Application now has a fully-functional express server, with a GET route for the location resource. -->
 
 ## Credit and Collaborations
+Samuel Brindle, Ben Choe and I worked together on the data flow diagram below.  Sam is responsible for the extensive detail along the request/response paths.
 <!-- Give credit (and a link) to other people or resources that helped you build this application. -->
 
 ## Data Flow
