@@ -6,9 +6,11 @@ class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      apiData: [],
-      value: '',
-      // staticMap: ,
+      city: '',  //submitted by user
+      apiData: [],  //data from locationIQ
+      // cityLat: 0,
+      // cityLon: 0,
+      staticMap: '',  //image from locationIQ
       error: false
     }
   }
@@ -22,11 +24,14 @@ class App extends React.Component {
       console.log(`${url} was sent to locationIQ.com`)
       let locationIQdata = await axios.get(url);  //location will hold returned data from get method.  parameter is a url.
       console.log(locationIQdata.data); //displays a log of what was received
-      // locationStaticMap = curl -o mystaticmap.png 'https://maps.locationiq.com/v3/staticmap?{process.env.REACT_APP_LOCATION_API_KEY}&center={this.state.apiData.lat},{this.state.apiData.lon}&zoom=10';
+      // let locationStaticMap = `https://maps.locationiq.com/v3/staticmap?key=${process.env.REACT_APP_LOCATION_API_KEY}&center=${this.state.apiData.lat},${this.state.apiData.lon}&zoom=10`
+      //curl -o mystaticmap.png  code provided by locationID.  what is curl??
       this.setState({
         apiData: locationIQdata.data[0], //sets first result in array to state
+        // cityLat:locationIQdata.data[0].lat,
+        // cityLon: locationIQdata.data[0].lon,
+        // staticMap: `https://maps.locationiq.com/v3/staticmap?key=${process.env.REACT_APP_LOCATION_API_KEY}&center=${this.state.apiData.lat},${this.state.apiData.lon}&zoom=10`,  //was always undefined
         error: false,  //resets error-free state in case an error had been returned before
-        // staticMap: locationSstaticMap
       });
       console.log(locationIQdata.data[0]);
     } catch (error) {  //else do this
@@ -41,7 +46,7 @@ class App extends React.Component {
 
   cityChange = (e) => {  //attached to input below
     this.setState({
-      city: e.target.value
+      city: e.target.value  //must be "value"
     });
   }
 
@@ -65,10 +70,11 @@ class App extends React.Component {
       <h2>{this.state.apiData.display_name}</h2> 
       <p>latitude = {this.state.apiData.lat}</p>
       <p>longitude = {this.state.apiData.lon}</p>
-      {/* <img src={this.state.staticmap}></img> */}
+      {/* <img src={this.state.staticMap}></img> */}
+      <img src={`https://maps.locationiq.com/v3/staticmap?key=${process.env.REACT_APP_LOCATION_API_KEY}&center=${this.state.apiData.lat},${this.state.apiData.lon}&zoom=10`}></img>
       </>
     );
   }
 }
-//  https://maps.locationiq.com/v3/staticmap?{process.env.REACT_APP_LOCATION_API_KEY}&center={this.state.apiData.lat},{this.state.apiData.lon}&zoom=10
+
 export default App;
