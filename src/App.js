@@ -28,9 +28,9 @@ class App extends React.Component {
       //curl -o mystaticmap.png  code provided by locationID.  what is curl??
       this.setState({
         apiData: locationIQdata.data[0], //sets first result in array to state
-        // cityLat:locationIQdata.data[0].lat,
+        // cityLat: locationIQdata.data[0].lat,
         // cityLon: locationIQdata.data[0].lon,
-        // staticMap: `https://maps.locationiq.com/v3/staticmap?key=${process.env.REACT_APP_LOCATION_API_KEY}&center=${this.state.apiData.lat},${this.state.apiData.lon}&zoom=10`,  //was always undefined
+        staticMap: `https://maps.locationiq.com/v3/staticmap?key=${process.env.REACT_APP_LOCATION_API_KEY}&center=${this.state.apiData.lat},${this.state.apiData.lon}&zoom=10`,  //was always undefined
         error: false,  //resets error-free state in case an error had been returned before
       });
       console.log(locationIQdata.data[0]);
@@ -53,28 +53,28 @@ class App extends React.Component {
   render() {
     return (
       <>
-      <h1>What city shall we Explore?</h1>
-      <form onSubmit={this.handleButton}>
-        <label htmlFor="cityName">Explore a City</label>
-        <br/>
-        <input
-          type="text"
-          id="cityName"
-          onChange={this.cityChange} />
-          <br/>
-        <button
-        type="submit">
-          Explore!
-        </button>
-      </form>
-      <h2>{this.state.apiData.display_name}</h2> 
-      <p>latitude = {this.state.apiData.lat}</p>
-      <p>longitude = {this.state.apiData.lon}</p>
-      {/* <img src={this.state.staticMap}></img> */}
-      <img src={`https://maps.locationiq.com/v3/staticmap?key=${process.env.REACT_APP_LOCATION_API_KEY}&center=${this.state.apiData.lat},${this.state.apiData.lon}&zoom=10`}></img>
+        <h1>What city shall we Explore?</h1>
+        <form onSubmit={this.handleButton}>
+          <label htmlFor="cityName">Explore a City</label>
+          <br />
+          <input
+            type="text"
+            id="cityName"
+            onChange={this.cityChange} />
+          <br />
+          <button
+            type="submit">
+            Explore!
+          </button>
+        </form>
+        <h2>{this.state.apiData.display_name}</h2>
+        <p>latitude = {this.state.apiData.lat}</p>
+        <p>longitude = {this.state.apiData.lon}</p>
+        <img src={this.state.staticMap}></img>
+        <img src={`https://maps.locationiq.com/v3/staticmap?key=${process.env.REACT_APP_LOCATION_API_KEY}&center=${this.state.apiData.lat},${this.state.apiData.lon}&zoom=10`}></img>
       </>
     );
   }
-}
+}  //this is all one massive component...  can it be divided up?
 
 export default App;
